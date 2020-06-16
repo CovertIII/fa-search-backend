@@ -1,7 +1,10 @@
 const path = require('path');
 const express = require('express');
 const app = express();
+const cors = require('cors')
 const { searchList } = require('./search.js');
+
+const port = process.env.PORT || 3005;
 
 const main = async () => {
 
@@ -16,9 +19,10 @@ const main = async () => {
     });
   }
 
+  app.use(cors());
+
   const publicPath = path.join(__dirname, 'public');
   app.use(express.static(publicPath));
-  const port = process.env.PORT || 3005;
 
   app.get('/search', (req, res) => {
     const term = req.query.term;
