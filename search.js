@@ -30,8 +30,10 @@ const searchList = async term => {
     await readFiles(svgPath);
   }
 
+  const terms = term.split(' ');
+
   return list.filter(({name}) => {
-    return name.includes(term);
+    return terms.every( term => name.includes(term));
   });
 };
 

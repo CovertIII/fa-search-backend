@@ -26,8 +26,16 @@ const main = async () => {
 
   app.get('/search', (req, res) => {
     const term = req.query.term;
+    const delay = req.query.delay === 'true';
     return searchList(term).then( result => {
-      res.json(result);
+      if(delay) {
+        const delayTime = result.length * 20;
+        setTimeout(() => {
+          res.json(result);
+        }, delayTime);
+      } else {
+        res.json(result);
+      }
     }).catch( e => {
       res.status(500);
       res.json({
