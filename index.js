@@ -27,6 +27,10 @@ const main = async () => {
   app.get('/search', (req, res) => {
     const term = req.query.term;
     const delay = req.query.delay === 'true';
+    if(term === 'error') {
+      res.status(500);
+      return res.json({title: 'Fake server error'});
+    }
     return searchList(term).then( result => {
       if(delay) {
         const delayTime = result.length * 20;
